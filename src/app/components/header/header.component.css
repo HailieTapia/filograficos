@@ -1,0 +1,92 @@
+.header-menu {
+  position: relative; /* Para posicionar el dropdown */
+}
+
+.menu-button {
+  background-color: transparent; /* Fondo transparente */
+  border: none; /* Sin borde */
+  color: #3e50b4; /* Azul oscuro */
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  display: none; /* Oculto por defecto */
+  position: absolute; /* Para colocar el menú en relación al botón */
+  top: 40px; /* Ajusta según el diseño */
+  left: 0;
+  background-color: #ffffff; /* Fondo blanco */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+  z-index: 100; /* Asegura que esté en la parte superior */
+}
+
+.header-menu:hover .dropdown-menu {
+  display: block; /* Muestra el menú al pasar el mouse */
+}
+
+.dropdown-menu a {
+  display: block; /* Para que cada enlace ocupe toda la línea */
+  padding: 8px 16px; /* Espaciado interno */
+  color: #333; /* Texto gris oscuro */
+  text-decoration: none; /* Sin subrayado */
+}
+
+.dropdown-menu a:hover {
+  background-color: #f0f0f0; /* Fondo gris claro al hover */
+}
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #01d1dc;
+  border-bottom: 1px solid #ccc;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo img {
+  height: 50px;
+  margin-right: 10px;
+}
+
+.header-company-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.header-search {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  margin: 0 20px;
+}
+
+.header-search input {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  flex-grow: 1;
+}
+
+.header-icons a {
+  margin-left: 15px;
+  font-size: 1.5rem;
+}
+
+.header-buttons .header-button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  background-color: #3cb371;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.header-buttons .create-account {
+  background-color: #ff0000;
+}

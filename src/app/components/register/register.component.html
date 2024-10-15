@@ -1,0 +1,87 @@
+<div class="flex min-h-screen bg-gradient-to-b justify-center from-[#00ffff] to-[#3cb371]">
+  <div class="w-full lg:w-1/2 flex items-center justify-center p-8">
+    <div class="max-w-md w-full bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg shadow-lg rounded-lg p-6">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Registro de Usuario</h2>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+        <fieldset class="mb-4 border border-gray-300 rounded-md p-4">
+          <legend class="text-sm font-medium text-gray-700">Información de Usuario</legend>
+
+          <div class="mb-4">
+            <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
+            <div class="input-with-icon mt-1 flex items-center">
+              <i class="material-icons text-gray-500" style="font-size: 20px;">person</i>
+              <input id="nombre" formControlName="nombre" type="text" required placeholder="Ingresa tu nombre" class="ml-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out" />
+            </div>
+            <div *ngIf="f['nombre'].invalid && (f['nombre'].dirty || f['nombre'].touched)">
+              <small *ngIf="f['nombre'].errors?.['required']" class="text-red-500">El nombre es requerido.</small>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <div class="input-with-icon mt-1 flex items-center">
+              <i class="material-icons text-gray-500" style="font-size: 20px;">email</i>
+              <input id="email" formControlName="email" type="email" required placeholder="Ingresa tu email" class="ml-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out" />
+            </div>
+            <div *ngIf="f['email'].invalid && (f['email'].dirty || f['email'].touched)">
+              <small *ngIf="f['email'].errors?.['required']" class="text-red-500">El email es requerido.</small>
+              <small *ngIf="f['email'].errors?.['email']" class="text-red-500">Email no válido.</small>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
+            <div class="input-with-icon mt-1 flex items-center">
+              <i class="material-icons text-gray-500" style="font-size: 20px;">phone</i>
+              <input id="telefono" formControlName="telefono" type="text" required placeholder="Ingresa tu teléfono" class="ml-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out" />
+            </div>
+            <div *ngIf="f['telefono'].invalid && (f['telefono'].dirty || f['telefono'].touched)">
+              <small *ngIf="f['telefono'].errors?.['required']" class="text-red-500">El teléfono es requerido.</small>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+            <div class="input-with-icon mt-1 flex items-center">
+              <i class="material-icons text-gray-500" style="font-size: 20px;">lock</i>
+              <input id="password" formControlName="password" type="password" required placeholder="Ingresa tu contraseña" class="ml-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out" />
+            </div>
+            <div *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched)">
+              <small *ngIf="f['password'].errors?.['required']" class="text-red-500">La contraseña es requerida.</small>
+              <small *ngIf="f['password'].errors?.['minlength']" class="text-red-500">La contraseña debe tener al menos 8 caracteres.</small>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="tipo_usuario" class="block text-sm font-medium text-gray-700">Tipo de Usuario</label>
+            <div class="input-with-icon mt-1 flex items-center">
+              <i class="material-icons text-gray-500" style="font-size: 20px;">group</i>
+              <select id="tipo_usuario" formControlName="tipo_usuario" required class="ml-2 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200 ease-in-out">
+                <option value="" disabled>Selecciona un tipo</option>
+                <option value="cliente">Cliente</option>
+                <option value="administrador">Administrador</option>
+              </select>
+            </div>
+            <div *ngIf="f['tipo_usuario'].invalid && (f['tipo_usuario'].dirty || f['tipo_usuario'].touched)">
+              <small *ngIf="f['tipo_usuario'].errors?.['required']" class="text-red-500">El tipo de usuario es requerido.</small>
+            </div>
+          </div>
+
+          <div class="mb-4 flex items-center">
+            <input id="mfa_activado" formControlName="mfa_activado" type="checkbox" class="mr-2" />
+            <label for="mfa_activado" class="text-sm font-medium text-gray-700">Activar MFA</label>
+          </div>
+        </fieldset>
+
+        <button type="submit" [disabled]="loading" class="w-full py-3 mt-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 ease-in-out">Registrar</button>
+        <div *ngIf="errorMessage" class="mt-4 text-red-500">{{ errorMessage }}</div>
+      </form>
+      <div class="mt-6 text-center">
+        <p class="text-sm text-gray-600">¿Ya tienes cuenta? 
+          <a href="/login" class="text-blue-600 hover:underline">Iniciar sesión</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
