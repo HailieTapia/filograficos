@@ -1,0 +1,50 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+  <div class="bg-white shadow-md rounded-lg p-6 w-96">
+    <h2 class="text-2xl font-bold mb-4 text-center">Recuperar Contraseña</h2>
+    <p class="text-gray-600 mb-6 text-center">Ingresa tu correo electrónico para recuperar tu contraseña.</p>
+
+    <form (submit)="initiatePasswordRecovery($event)">
+      <div class="mb-4">
+        <label for="email" class="block text-sm font-medium text-gray-700">Correo electrónico:</label>
+        <div class="flex items-center">
+          <svg class="h-5 w-5 text-gray-400 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12v-2a4 4 0 00-8 0v2m8 0a4 4 0 00-8 0m8 0v6a2 2 0 01-2 2h-4a2 2 0 01-2-2v-6m12 0a9.77 9.77 0 01-.42 2.35m-.58.65H6m16 0a9.77 9.77 0 00-.42 2.35m-4.58.65H6m8 4v1m4-4H6m8 4h1m-5-6v6m0-6H6m5 0v6" />
+          </svg>
+          <input type="email" id="email" placeholder="Ingrese su correo" required [(ngModel)]="email" name="email"
+            class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-yellow-500 transition duration-200 ease-in-out" />
+        </div>
+      </div>
+
+      <button type="submit" class="w-full bg-yellow-500 text-white py-2 rounded-md hover:bg-yellow-600 transition duration-200">
+        Recuperar Contraseña
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal para la verificación de OTP -->
+<div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" [class.hidden]="!isModalOpen">
+  <div class="bg-white rounded-lg shadow-lg p-6 w-96">
+    <h2 class="text-2xl font-bold mb-4 text-center">Verificar OTP</h2>
+    <p class="text-gray-600 mb-4 text-center">Se ha enviado un código de verificación a tu correo.</p>
+
+    <form (submit)="verifyOTP($event)">
+      <div class="mb-4">
+        <label for="otp" class="block text-sm font-medium text-gray-700">Código OTP:</label>
+        <div class="flex items-center">
+          <svg class="h-5 w-5 text-gray-400 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12v-2a4 4 0 00-8 0v2m8 0a4 4 0 00-8 0m8 0v6a2 2 0 01-2 2h-4a2 2 0 01-2-2v-6m12 0a9.77 9.77 0 01-.42 2.35m-.58.65H6m16 0a9.77 9.77 0 00-.42 2.35m-4.58.65H6m8 4v1m4-4H6m8 4h1m-5-6v6m0-6H6m5 0v6" />
+          </svg>
+          <input type="text" id="otp" placeholder="Ingrese el código" required [(ngModel)]="otp" name="otp"
+            class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-yellow-500 transition duration-200 ease-in-out" />
+        </div>
+      </div>
+
+      <button type="submit" class="w-full bg-yellow-500 text-white py-2 rounded-md hover:bg-yellow-600 transition duration-200">
+        Verificar OTP
+      </button>
+    </form>
+
+    <button (click)="closeModal()" class="mt-4 w-full text-center text-yellow-500 hover:underline">Cancelar</button>
+  </div>
+</div>

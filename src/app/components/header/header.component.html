@@ -1,70 +1,38 @@
-<div class="flex justify-between items-center p-4 bg-[#01d1dc] border-b border-gray-300">
-  <div class="flex items-center">
-    <img
-      class="h-12 mr-2"
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdtkSSngKJEJgPuAXcA_F3ci9FjrfCGkjZ1YFcB3Z3Ktbg9LTiBAlQGvp4dpvRKbnMw2g&usqp=CAU"
-      alt="Logo"
-    />
-    <span class="text-2xl font-bold">Filográficos</span>
-  </div>
-
-  <div class="flex items-center flex-grow mx-4">
-    <input
-      type="text"
-      placeholder="Buscar productos..."
-      class="flex-grow p-2 border border-gray-300 rounded-full"
-    />
-    <span class="material-icons cursor-pointer">search</span>
-  </div>
-
-  <div class="relative">
-    <button class="bg-transparent border-none text-[#3e50b4] text-lg cursor-pointer">
-      Artículos
-    </button>
-    <div class="absolute hidden bg-white shadow-md mt-2 rounded-lg z-10 group-hover:block">
-      <a href="/category1" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Fotografía</a>
-      <a href="/category2" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Manual</a>
-      <a href="/category3" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Servicios</a>
+<header class="bg-gray-800 text-white p-4 shadow-md">
+  <div class="container mx-auto flex justify-between items-center">
+    <div class="flex items-center">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPJHQEOO_cjRWqPY0IU0tuyhCKu1wJdT0BLA&s" alt="Logo" class="h-10 mr-2" />  <!-- Cambia la ruta y el nombre de la imagen -->
+      <h1 class="text-2xl font-bold">Filograficos</h1>
     </div>
+    <nav class="mt-2">
+      <ul class="flex space-x-4">
+        <ng-container *ngIf="userRole === 'administrador'">
+          <li>
+            <a class="hover:underline" href="/admin">Panel de Administración</a>
+          </li>
+          <li>
+            <a class="hover:underline" routerLink="/logout">Cerrar Sesión</a>
+          </li>
+        </ng-container>
+        
+        <ng-container *ngIf="userRole === 'cliente'">
+          <li>
+            <a class="hover:underline" href="/profile">Perfil</a>
+          </li>
+          <li>
+            <a class="hover:underline" routerLink="/logout" >Cerrar Sesión</a>
+          </li>
+        </ng-container>
+        
+        <ng-container *ngIf="!userRole">
+          <li>
+            <a class="hover:underline" href="/login">Iniciar Sesión</a>
+          </li>
+          <li>
+            <a class="hover:underline" href="/register">Registrarse</a>
+          </li>
+        </ng-container>
+      </ul>
+    </nav>
   </div>
-
-  <!-- Sección visible solo para administradores -->
-  <div *ngIf="userRole === 'admin'" class="ml-4">
-    <a href="/admin/assistance" class="text-gray-700 hover:underline">Asistencias</a>
-  </div>
-
-  <!-- Sección visible solo para clientes -->
-  <div *ngIf="userRole === 'client'" class="flex items-center ml-4">
-    <a href="/client/orders" class="text-gray-700 hover:underline">Mis Órdenes</a>
-    <a href="/client/settings" class="ml-4 text-gray-700 hover:underline">Configuración</a>
-  </div>
-
-  <!-- Íconos comunes para clientes -->
-  <div *ngIf="userRole === 'client'" class="flex items-center ml-4">
-    <a href="/user" title="Mi cuenta" class="text-gray-700 hover:underline">
-      <span class="material-icons">person</span>
-    </a>
-    <a href="/cart" title="Carrito de compras" class="ml-4 text-gray-700 hover:underline">
-      <span class="material-icons">shopping_cart</span>
-    </a>
-  </div>
-
-  <!-- Botones de login y registro solo visibles si el usuario no está autenticado -->
-  <div *ngIf="!isAuthenticated" class="flex items-center ml-4">
-    <button class="header-button bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600" (click)="login()">Login</button>
-    <button class="header-button bg-red-500 text-white px-4 py-2 rounded ml-2 hover:bg-red-600" (click)="createAccount()">Crear Cuenta</button>
-  </div>
-
-  <!-- Botón de logout solo visible si el usuario está autenticado -->
-  <div *ngIf="isAuthenticated" class="ml-4">
-    <button class="header-button bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" (click)="logout()">Logout</button>
-  </div>
-
-  <!-- Botón para cambiar entre modos oscuro y claro -->
-  <div class="ml-4">
-    <button class="header-button bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300" (click)="toggleDarkMode()">
-      <span *ngIf="isDarkMode">🌙 Modo Claro</span>
-      <span *ngIf="!isDarkMode">🌞 Modo Oscuro</span>
-    </button>
-  </div>
-</div>
+</header>

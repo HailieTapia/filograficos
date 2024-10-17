@@ -1,0 +1,61 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-md mx-auto w-full">
+    <h2 class="text-2xl font-bold text-center mb-6">Iniciar Sesión</h2>
+      <!-- Mensaje Exitoso -->
+      <div *ngIf="successMessage"
+        class="mt-4 p-4 border border-green-300 bg-green-100 text-green-800 rounded shadow-sm flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            d="M10 2a8 8 0 100 16 8 8 0 000-16zm3.707 7.293l-4 4a1 1 0 01-1.414-1.414l3.293-3.293-3.293-3.293A1 1 0 117.293 5.293l4 4a1 1 0 01.414.707c0 .265-.105.52-.293.707z" />
+        </svg>
+        {{ successMessage }}
+      </div>
+
+      <!-- Mensaje de Error General -->
+      <div *ngIf="errorMessage"
+        class="mt-4 p-4 border border-red-300 bg-red-100 text-red-800 rounded shadow-sm flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 10a1 1 0 110-2 1 1 0 010 2zm1-5a1 1 0 10-2 0v3a1 1 0 002 0V7z" />
+        </svg>
+        {{ errorMessage }}
+      </div>
+
+    <div class="mb-4">
+      <label for="email" class="block text-sm font-medium text-gray-700">Email:</label>
+      <input type="email" id="email" formControlName="email" required
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-yellow-500" />
+
+        <ul *ngIf="loginForm.get('email')?.errors && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)"
+        class="mt-2 text-red-600 list-disc list-inside">
+        <li *ngIf="loginForm.get('email')?.errors?.['required']">El email es obligatorio.</li>
+        <li *ngIf="loginForm.get('email')?.errors?.['email']">El formato del email es inválido.</li>
+      </ul>
+    </div>
+    <div class="mb-4">
+      <label for="password" class="block text-sm font-medium text-gray-700">Contraseña:</label>
+      <input type="password" id="password" formControlName="password" required
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-yellow-500" />
+        <ul *ngIf="loginForm.get('password')?.errors && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty)"
+        class="mt-2 text-red-600 list-disc list-inside">
+        <li *ngIf="loginForm.get('password')?.errors?.['required']">La contraseña es obligatoria.</li>
+        <li *ngIf="loginForm.get('password')?.errors?.['minlength']">La contraseña debe tener al menos 8 caracteres.</li>
+      </ul>
+    </div>
+
+    <div class="mb-4">
+      <p class="text-xs text-gray-500">Verifica que no eres un robot.</p>
+      <re-captcha (resolved)="onRecaptchaResolved($event)" siteKey="6Lck9V8qAAAAAEnjZRJxMKa27R1P_GWppjLuxmbG"> </re-captcha>
+    </div>
+
+    <button type="submit" [disabled]="loading"
+      class="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-2 rounded-md transition duration-200">Iniciar
+      Sesión</button>
+    <div class="text-center mt-4">
+      ¿Olvidaste tu contraseña?<a href="/recupera" class="text-blue-500 hover:underline"> Restablecela</a>
+      <div class="text-center mt-4">
+        ¿No tienes cuenta? <a  href="/register" class="text-blue-500 hover:underline">Crea una</a>
+      </div>
+
+    </div>
+  </form>
+</div>

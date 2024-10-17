@@ -1,0 +1,47 @@
+<div class="flex min-h-screen justify-center bg-gray-100">
+  <div class="w-full lg:w-1/3 flex items-center justify-center p-8">
+    <div class="max-w-md w-full bg-white border border-gray-300 shadow-md rounded-lg p-6">
+      <h2 class="text-2xl font-semibold text-center text-gray-900 mb-6">Restablecer Contraseña</h2>
+      <form (submit)="resetPassword($event)" class="space-y-4">
+        
+        <!-- Correo Electrónico -->
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700">Correo Electrónico:</label>
+          <input type="email" id="email" [(ngModel)]="email" name="email" required
+                 class="mt-1 block w-full p-2 border border-gray-400 rounded-sm shadow-sm 
+                        focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500
+                        transition duration-200 ease-in-out" 
+                 placeholder="Tu dirección de correo electrónico" />
+        </div>
+
+        <!-- Nueva Contraseña -->
+        <div>
+          <label for="newPassword" class="block text-sm font-medium text-gray-700">Nueva Contraseña:</label>
+          <input type="password" id="newPassword" [(ngModel)]="newPassword" name="newPassword" required
+                 class="mt-1 block w-full p-2 border border-gray-400 rounded-sm shadow-sm 
+                        focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500
+                        transition duration-200 ease-in-out" 
+                 placeholder="Ingresa tu nueva contraseña" />
+        </div>
+
+        <!-- Confirmar Nueva Contraseña -->
+        <div>
+          <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirmar Nueva Contraseña:</label>
+          <input type="password" id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword" required
+                 class="mt-1 block w-full p-2 border border-gray-400 rounded-sm shadow-sm 
+                        focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500
+                        transition duration-200 ease-in-out" 
+                 placeholder="Vuelve a ingresar tu nueva contraseña" />
+        </div>
+
+        <!-- Botón Restablecer -->
+        <button type="submit" 
+                class="w-full py-2 bg-yellow-500 text-gray-900 font-semibold rounded-sm 
+                       hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 
+                       focus:ring-opacity-50 transition duration-200 ease-in-out">
+          Restablecer Contraseña
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
