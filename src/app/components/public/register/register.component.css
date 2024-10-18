@@ -1,0 +1,37 @@
+.password-strength-container {
+    margin-top: 10px;
+  }
+  
+  .strength-bar-container {
+    width: 100%;
+    background-color: #e0e0e0; /* Color de fondo de la barra */
+    border-radius: 5px; /* Bordes redondeados */
+    overflow: hidden; /* Ocultar el desbordamiento */
+  }
+  
+  .strength-bar {
+    height: 8px; /* Altura de la barra */
+    transition: width 0.3s; /* Transición suave al cambiar el ancho */
+  }
+  
+  .Insuficiente {
+    background-color: red;
+  }
+  
+  .Baja {
+    background-color: orange;
+  }
+  
+  .Moderada {
+    background-color: yellow;
+  }
+  
+  .Fuerte {
+    background-color: lightgreen;
+  }
+  
+  .Robusta {
+    background-color: green;
+  }
+
+  

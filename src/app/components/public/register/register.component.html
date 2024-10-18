@@ -37,9 +37,12 @@
           </div>
           <div *ngIf="f['nombre'].invalid && (f['nombre'].dirty || f['nombre'].touched)">
             <small *ngIf="f['nombre'].errors?.['required']" class="text-red-500">El nombre es requerido.</small>
-            <small *ngIf="f['nombre'].errors?.['minlength']" class="text-red-500">El nombre debe tener al menos 3 caracteres.</small>
-            <small *ngIf="f['nombre'].errors?.['maxlength']" class="text-red-500">El nombre no debe exceder 20 caracteres.</small>
-            <small *ngIf="f['nombre'].errors?.['pattern']" class="text-red-500">El nombre solo puede contener letras y espacios.</small>
+            <small *ngIf="f['nombre'].errors?.['minlength']" class="text-red-500">El nombre debe tener al menos 3
+              caracteres.</small>
+            <small *ngIf="f['nombre'].errors?.['maxlength']" class="text-red-500">El nombre no debe exceder 20
+              caracteres.</small>
+            <small *ngIf="f['nombre'].errors?.['pattern']" class="text-red-500">El nombre solo puede contener letras y
+              espacios.</small>
           </div>
         </div>
 
@@ -71,11 +74,14 @@
                 d="M7.707 3.707a1 1 0 00-1.414-1.414L4.58 4.006A4.984 4.984 0 003 6.944c.025 2.72 1.4 5.422 3.667 7.69 2.267 2.268 4.97 3.642 7.691 3.667a4.984 4.984 0 002.938-1.578l1.713-1.712a1 1 0 00-1.414-1.414L15 15a1 1 0 01-1.13.243C11.492 13.927 9.387 11.822 8.13 9.97a1 1 0 01.243-1.129L7.707 3.707z"
                 clip-rule="evenodd" />
             </svg>
-            <input id="telefono" formControlName="telefono" type="text" required placeholder="Ingresa tu teléfono"
+            <input id="telefono" formControlName="telefono" type="tel" required placeholder="Ingresa tu teléfono"
+              maxlength="10"
               class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-yellow-500 transition duration-200 ease-in-out" />
           </div>
           <div *ngIf="f['telefono'].invalid && (f['telefono'].dirty || f['telefono'].touched)">
             <small *ngIf="f['telefono'].errors?.['required']" class="text-red-500">El teléfono es requerido.</small>
+            <small *ngIf="f['telefono'].errors?.['pattern']" class="text-red-500">El teléfono debe tener exactamente 10
+              dígitos y no puede contener letras.</small>
           </div>
         </div>
 
@@ -89,16 +95,41 @@
                 d="M10 4a3 3 0 00-3 3v1H6a2 2 0 00-2 2v7a2 2 0 002 2h8a2 2 0 002-2v-7a2 2 0 00-2-2h-1V7a3 3 0 00-3-3zm-1 4V7a1 1 0 012 0v1h-2zm-3 5a1 1 0 011-1h6a1 1 0 011 1v2a1 1 0 01-1 1H7a1 1 0 01-1-1v-2z"
                 clip-rule="evenodd" />
             </svg>
-            <input id="password" formControlName="password" type="password" required placeholder="Ingresa tu contraseña"
+            <input id="password" formControlName="password" [type]="isPasswordVisible ? 'text' : 'password'" required
+              placeholder="Ingresa tu contraseña"
               class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-yellow-500 transition duration-200 ease-in-out" />
+            <button type="button" (click)="togglePasswordVisibility()" class="ml-2">
+              <svg *ngIf="!isPasswordVisible" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 4.5C6.5 4.5 2 12 2 12s4.5 7.5 10 7.5 10-7.5 10-7.5-4.5-7.5-10-7.5zM12 18.5C8.5 18.5 5 12 5 12s3.5-6.5 7-6.5 7 6.5 7 6.5-3.5 6.5-7 6.5zM12 15.5c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3z" />
+              </svg>
+              <svg *ngIf="isPasswordVisible" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 4.5C6.5 4.5 2 12 2 12s4.5 7.5 10 7.5 10-7.5 10-7.5-4.5-7.5-10-7.5zM12 18.5C8.5 18.5 5 12 5 12s3.5-6.5 7-6.5 7 6.5 7 6.5-3.5 6.5-7 6.5zM12 10.5a1.5 1.5 0 10-.001 2.999A1.5 1.5 0 0012 10.5z" />
+              </svg>
+            </button>
           </div>
+          <!-- Mensajes de error -->
           <div *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched)">
             <small *ngIf="f['password'].errors?.['required']" class="text-red-500">La contraseña es requerida.</small>
-            <small *ngIf="f['password'].errors?.['minlength']" class="text-red-500">Debe tener al menos 8
-              caracteres.</small>
+            <small *ngIf="f['password'].errors?.['minlength']" class="text-red-500">Debe tener al menos 8 caracteres.</small>
           </div>
-        </div>
 
+          <!-- Barra de fortaleza -->
+          <div class="password-strength-container">
+            <div class="strength-bar-container">
+              <div class="strength-bar"
+                   [ngClass]="getPasswordStrengthClass(passwordStrength(f['password'].value))"
+                   [style.width]="(passwordStrength(f['password'].value) * 25) + '%'"></div>
+            </div>
+            <small class="block text-sm font-medium text-gray-700">
+              Fortaleza de la contraseña: {{ getPasswordStrengthClass(passwordStrength(f['password'].value)) }}
+            </small>
+          </div>
+          
+        </div>
         <!-- Botón de registro -->
         <div class="mt-6">
           <button type="submit"
