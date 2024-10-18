@@ -17,6 +17,8 @@ export class LoginComponent {
   errorMessage: string | null = null; 
   successMessage: string | null = null;
   loading: boolean = false;
+  isPasswordVisible: boolean = false;
+  isConfirmPasswordVisible: boolean = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
@@ -25,7 +27,15 @@ export class LoginComponent {
       recaptcha: ['', Validators.required], 
     });
   }
-
+  get f() { // Método para obtener los controles del formulario
+    return this.loginForm.controls; 
+  }
+  togglePasswordVisibility() {
+    this.isPasswordVisible = !this.isPasswordVisible;
+  }
+  toggleConfirmPasswordVisibility() {
+    this.isConfirmPasswordVisible = !this.isConfirmPasswordVisible;
+  }
 onSubmit() {
   this.errorMessage = null;
   this.successMessage = null;
