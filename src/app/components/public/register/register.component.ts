@@ -7,29 +7,28 @@ import { CommonModule } from '@angular/common'; // Importa CommonModule
 @Component({
   selector: 'app-register', // Nombre del selector para este componente
   standalone: true, // Indica que este componente es autónomo
-  templateUrl: './register.component.html', // Ruta al archivo HTML del componente
-  styleUrls: ['./register.component.css'], // Ruta a los estilos del componente
+  templateUrl: './register.component.html', 
+  styleUrls: ['./register.component.css'], 
   imports: [CommonModule, ReactiveFormsModule]
 })
-export class RegisterComponent implements OnInit { // Define la clase del componente que implementa OnInit
-  registerForm: FormGroup; // Variable para almacenar el formulario reactivo
-  loading = false; // Variable para manejar el estado de carga
-  errorMessage: string | null = null; // Variable para almacenar mensajes de error
+export class RegisterComponent implements OnInit { 
+  registerForm: FormGroup; 
+  loading = false; 
+  errorMessage: string | null = null;
   successMessage: string | null = null;
 
   constructor(
-    private fb: FormBuilder, // Inyecta FormBuilder para crear formularios
-    private authService: AuthService, // Inyecta AuthService para manejar la autenticación
-    private router: Router // Inyecta Router para la navegación
+    private fb: FormBuilder, 
+    private authService: AuthService, 
+    private router: Router
   ) {
-    // Inicializa el formulario con validaciones
     this.registerForm = this.fb.group({
-      nombre: ['', [Validators.required]], // Campo nombre: requerido
-      email: ['', [Validators.required, Validators.email]], // Campo email: requerido y debe ser un email válido
-      telefono: ['', [Validators.required]], // Campo teléfono: requerido
-      password: ['', [Validators.required, Validators.minLength(8)]], // Campo contraseña: requerido y mínimo 8 caracteres
-      tipo_usuario: ['cliente'], // por defecto cliente
-      mfa_activado: [false] // Campo mfa_activado: valor por defecto false
+      nombre: ['', [Validators.required,Validators.pattern(/^[a-zA-Z\s]+$/) , Validators.minLength(3), Validators.maxLength(20)]], 
+      email: ['', [Validators.required, Validators.email]], 
+      telefono: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      password: ['', [Validators.required, Validators.minLength(8)]], 
+      tipo_usuario: ['cliente'], 
+      mfa_activado: [false] 
     });
   }
 

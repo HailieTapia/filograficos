@@ -37,6 +37,9 @@
           </div>
           <div *ngIf="f['nombre'].invalid && (f['nombre'].dirty || f['nombre'].touched)">
             <small *ngIf="f['nombre'].errors?.['required']" class="text-red-500">El nombre es requerido.</small>
+            <small *ngIf="f['nombre'].errors?.['minlength']" class="text-red-500">El nombre debe tener al menos 3 caracteres.</small>
+            <small *ngIf="f['nombre'].errors?.['maxlength']" class="text-red-500">El nombre no debe exceder 20 caracteres.</small>
+            <small *ngIf="f['nombre'].errors?.['pattern']" class="text-red-500">El nombre solo puede contener letras y espacios.</small>
           </div>
         </div>
 
