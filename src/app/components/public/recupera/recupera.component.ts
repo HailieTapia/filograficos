@@ -1,75 +1,87 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component ,OnInit} from '@angular/core';
+import { FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-recupera',
   standalone: true,
   templateUrl: './recupera.component.html',
   styleUrls: ['./recupera.component.css'],
-  imports: [FormsModule]
+  imports: [FormsModule, CommonModule]
 })
-export class RecuperaComponent {
-  email: string = ''; // Variable para almacenar el correo electrónico
-  otp: string = ''; // Variable para almacenar el código OTP
+export class RecuperaComponent implements OnInit {
+  email: string = '';
+  otp: string = '';
+  successMessage: string = '';
+  errorMessage: string = '';
+  isModalOpen = false;
+  recoveryForm: FormGroup;
 
-  isModalOpen = false; // Controla la visibilidad del modal
-
-  constructor(private authService: AuthService, private router: Router) { }
-
-  // Método para iniciar el proceso de recuperación de contraseña
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+    this.recoveryForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      otp: ['', Validators.required],
+    });
+  }
+  ngOnInit(): void {}
+  get f() {
+    return this.recoveryForm.controls;
+  }
   initiatePasswordRecovery(event: Event): void {
-    event.preventDefault(); // Prevenir el envío del formulario por defecto
+    event.preventDefault();
 
     if (!this.email) {
-      alert('Por favor, ingresa tu correo electrónico.');
+      this.errorMessage = 'Por favor, ingresa tu correo electrónico.';
       return;
     }
 
     this.authService.recu({ email: this.email }).subscribe({
       next: (response) => {
-        console.log(`Se envió un correo de recuperación a: ${this.email}`);
-        this.openModal(); // Abrir modal de verificación de OTP
+        this.successMessage = 'Se envió un correo de recuperación a: ${this.email}';
+        this.successMessage = 'Se ha enviado un correo de recuperación.';
+        this.errorMessage = '';
+        this.openModal();
       },
       error: (error) => {
-        alert('Error al enviar el correo de recuperación. Por favor, inténtalo de nuevo.');
+        this.errorMessage = 'Error al enviar el correo de recuperación. Por favor, inténtalo con un correo válido.';
+        this.successMessage = '';
         console.error(error);
       }
     });
   }
 
-  // Método para verificar el código OTP
   verifyOTP(event: Event): void {
-    event.preventDefault(); // Prevenir el envío del formulario por defecto
+    event.preventDefault();
 
     if (!this.otp) {
-      alert('Por favor, ingresa el código OTP.');
+      this.errorMessage = 'Por favor, ingresa el código OTP.';
       return;
     }
 
     this.authService.verOTP({ email: this.email, otp: this.otp }).subscribe({
       next: (response) => {
-        alert(response.message); // Mensaje de éxito
-        this.closeModal(); // Cerrar modal
-        // Redirigir al usuario después de la verificación del OTP
-        this.router.navigate(['/newpass']); // Cambia '/reset-password' por la ruta de tu componente de restablecimiento
-
+        this.successMessage = response.message;
+        this.errorMessage = '';
+        this.closeModal();
+        setTimeout(() => {
+          // Redirige al NewPassComponent pasando el email
+          this.router.navigate(['/newpass', this.email]);
+        }, 2000);
       },
       error: (error) => {
-        alert(error.error.message); // Mostrar mensaje de error
+        this.errorMessage = error.error.message;
+        this.successMessage = '';
         console.error(error);
       }
     });
   }
 
-  // Método para cerrar el modal
   closeModal(): void {
     this.isModalOpen = false;
     this.resetFields(); // Reiniciar los campos al cerrar el modal
   }
 
-  // Método para reiniciar los campos
   private resetFields(): void {
     this.otp = ''; // Limpiar el campo OTP
   }

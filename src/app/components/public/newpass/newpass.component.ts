@@ -1,42 +1,58 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
-
+import { CommonModule } from '@angular/common'; 
 @Component({
   selector: 'app-new-pass',
   standalone: true,
   templateUrl: './newpass.component.html',
   styleUrls: ['./newpass.component.css'],
-  imports: [FormsModule]
+  imports: [FormsModule,CommonModule],
 })
-export class NewPassComponent {
-  email: string = ''; // Correo electrónico del usuario
-  newPassword: string = ''; // Nueva contraseña
-  confirmPassword: string = ''; // Confirmación de la nueva contraseña
+export class NewPassComponent implements OnInit {
+  email: string = ''; // Ahora obtendrás el email desde la ruta
+  newPassword: string = ''; 
+  confirmPassword: string = ''; 
+  successMessage: string = '';
+  errorMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute // Inyecta ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.email = params['email']; // Obtén el email de los parámetros
+    });
+  }
 
   resetPassword(event: Event): void {
-    event.preventDefault(); // Prevenir el envío del formulario por defecto
+    event.preventDefault(); 
+
+    // Reiniciar mensajes
+    this.successMessage = '';
+    this.errorMessage = '';
 
     if (!this.newPassword || !this.confirmPassword) {
-      alert('Por favor, completa ambos campos.');
+      this.errorMessage = 'Por favor, completa ambos campos.';
       return;
     }
 
     if (this.newPassword !== this.confirmPassword) {
-      alert('Las contraseñas no coinciden.');
+      this.errorMessage = 'Las contraseñas no coinciden.';
       return;
     }
 
     this.authService.resContra({ email: this.email, newPassword: this.newPassword }).subscribe({
       next: (response) => {
-        alert('Contraseña restablecida con éxito.');
-        this.router.navigate(['/login']); // Redirigir a la página de inicio de sesión
+        this.successMessage = 'Contraseña restablecida con éxito.';
+        this.router.navigate(['/login']);
       },
       error: (error) => {
-        alert('Error al restablecer la contraseña. Por favor, inténtalo de nuevo.');
+        this.errorMessage = 'Error al restablecer la contraseña. Por favor, inténtalo de nuevo.';
         console.error(error);
       }
     });

@@ -11,7 +11,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'recupera', component: RecuperaComponent },
-  { path: 'newpass', component: NewPassComponent },
+  { path: 'newpass/:email', component: NewPassComponent },
   { path: 'profile', component: ProfileComponent },
   { path: '**', redirectTo: '' } // Redirigir cualquier ruta no encontrada a Home
 ];
