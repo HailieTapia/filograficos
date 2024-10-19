@@ -16,7 +16,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
 
-  login(credentials: { email: string; password: string; recaptchaToken: string }): Observable<any> {
+  login(credentials: { email: string; password: string; /*recaptchaToken: string*/ }): Observable<any> {
     return this.http.post(`${this.apiUrl}/auth/login/`, credentials).pipe(
       tap((response: any) => {
         this.userRoleSubject.next(response.tipo);
