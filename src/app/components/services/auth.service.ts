@@ -1,8 +1,8 @@
-// src/app/services/auth.service.ts
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../environments/config'; // Importa el archivo de configuración
+import { environment } from '../environments/config'; 
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -10,10 +10,12 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = `${environment.baseUrl}`; // Usar baseUrl para la API
+  private apiUrl = `${environment.baseUrl}`; 
   private userRoleSubject = new BehaviorSubject<string | null>(null);
   userRole$ = this.userRoleSubject.asObservable();
-
+  /*private isCheckingAuth: boolean = false;
+  public currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+*/
   constructor(private http: HttpClient) { }
 
 
@@ -56,5 +58,22 @@ export class AuthService {
   logout() {
     this.userRoleSubject.next(null); // Resetea el rol al cerrar sesión
   }
+/*async checkAuthStatus(): Promise<any> {
+  this.isCheckingAuth = true;
+  try {
+    // Realiza la llamada HTTP directamente
+    const user = await this.http.get(`${this.apiUrl}/check-auth`, {
+      withCredentials: true,
+    }).toPromise();
+
+    this.currentUserSubject.next(user);
+    return user;
+  } catch {
+    this.currentUserSubject.next(null);
+    return null;
+  } finally {
+    this.isCheckingAuth = false;
+  }
+}*/
 
 }

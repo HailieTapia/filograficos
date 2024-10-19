@@ -1,37 +1,5 @@
-/* Estilos globales con Tailwind */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-/* Estilos generales */
-/* Estilos globales con Tailwind */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Estilos generales */
-body {
-  transition: background-color 0.3s, color 0.3s;
-}
-
-/* Modo Día */
-.day-mode {
-  background-color: #FFFFFF;
-  color: #333333;
-}
-
-/* Modo Noche */
-.night-mode {
-  background-color: #2C3E50;
-  color: #ECF0F1;
-}
-
-/* Estilos de botón */
-.day-mode .button {
-  background-color: #007BFF;
-  color: white;
-}
-
-.night-mode .button {
-  background-color: #3498DB;
-  color: white;
-}
