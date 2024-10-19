@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   imports: [FormsModule,CommonModule],
 })
 export class NewPassComponent implements OnInit {
-  email: string = ''; // Ahora obtendrás el email desde la ruta
+  email: string = ''; 
   newPassword: string = ''; 
   confirmPassword: string = ''; 
   successMessage: string = '';
@@ -20,19 +20,18 @@ export class NewPassComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute // Inyecta ActivatedRoute
+    private route: ActivatedRoute 
   ) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.email = params['email']; // Obtén el email de los parámetros
+      this.email = params['email']; 
     });
   }
 
   resetPassword(event: Event): void {
     event.preventDefault(); 
 
-    // Reiniciar mensajes
     this.successMessage = '';
     this.errorMessage = '';
 

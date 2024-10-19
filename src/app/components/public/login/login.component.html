@@ -63,7 +63,7 @@
         </button>
       </div>
     </div>
-    <!-- Mensajes de error -->
+
     <div *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched)">
       <small *ngIf="f['password'].errors?.['required']" class="text-red-500">La contraseña es requerida.</small>
       <small *ngIf="f['password'].errors?.['minlength']" class="text-red-500">Debe tener al menos 8

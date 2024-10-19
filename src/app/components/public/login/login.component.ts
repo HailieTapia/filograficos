@@ -27,7 +27,7 @@ export class LoginComponent {
       recaptcha: ['', Validators.required], 
     });
   }
-  get f() { // Método para obtener los controles del formulario
+  get f() {
     return this.loginForm.controls; 
   }
   togglePasswordVisibility() {
@@ -59,7 +59,7 @@ onSubmit() {
         error: (err) => {
           this.errorMessage = err.error?.message || 'Error en el inicio de sesión';
           setTimeout(() => {
-            location.reload(); // Recargar la página completa
+            location.reload(); 
           }, 2000);
         },
         complete: () => {
@@ -72,8 +72,6 @@ onSubmit() {
     }
   }
 }
-
-  // Asegúrate de que el tipo de captchaResponse sea string
   onRecaptchaResolved(captchaResponse: string | null) {
     if (captchaResponse) {
       this.loginForm.patchValue({ recaptcha: captchaResponse }); // Almacena el token en el formulario

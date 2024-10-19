@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 })
 export class HeaderComponent implements OnInit {
   userRole: string | null = null;
-  isNightMode: boolean = false; // Modo diurno por defecto
+  isNightMode: boolean = false; 
 
   constructor(private authService: AuthService) {}
 

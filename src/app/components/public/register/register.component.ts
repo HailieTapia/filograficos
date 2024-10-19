@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core'; // Importa Component y OnInit desde Angular core
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms'; // Importa herramientas para construir formularios reactivos
-import { Router } from '@angular/router'; // Importa Router para la navegación
-import { AuthService } from '../../services/auth.service'; // Importa el servicio de autenticación
-import { CommonModule } from '@angular/common'; // Importa CommonModule
+import { Component, OnInit } from '@angular/core'; 
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms'; 
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service'; 
+import { CommonModule } from '@angular/common';
 import zxcvbn from 'zxcvbn';
 
 @Component({
-  selector: 'app-register', // Nombre del selector para este componente
-  standalone: true, // Indica que este componente es autónomo
+  selector: 'app-register', 
+  standalone: true, 
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
   imports: [CommonModule, ReactiveFormsModule]
@@ -55,9 +55,9 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void { } //ciclo de vida 
+  ngOnInit(): void { } 
 
-  get f() { // Método para obtener los controles del formulario
+  get f() { 
     return this.registerForm.controls; 
   }
   togglePasswordVisibility() {

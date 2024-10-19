@@ -13,9 +13,6 @@ export class AuthService {
   private apiUrl = `${environment.baseUrl}`; 
   private userRoleSubject = new BehaviorSubject<string | null>(null);
   userRole$ = this.userRoleSubject.asObservable();
-  /*private isCheckingAuth: boolean = false;
-  public currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-*/
   constructor(private http: HttpClient) { }
 
 
@@ -44,36 +41,7 @@ export class AuthService {
   resContra(credentials: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/auth/reset-password`, credentials);
   }
-  // Método para obtener el perfil del usuario
-  getUserProfile(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/users/profile/`, { withCredentials: true }).pipe(
-      tap((profile) => {
-        // Aquí puedes manejar el perfil si es necesario
-        console.log('Perfil del usuario:', profile);
-      })
-    );
-  }
-
-  // Método para cerrar sesión
   logout() {
-    this.userRoleSubject.next(null); // Resetea el rol al cerrar sesión
+    this.userRoleSubject.next(null);
   }
-/*async checkAuthStatus(): Promise<any> {
-  this.isCheckingAuth = true;
-  try {
-    // Realiza la llamada HTTP directamente
-    const user = await this.http.get(`${this.apiUrl}/check-auth`, {
-      withCredentials: true,
-    }).toPromise();
-
-    this.currentUserSubject.next(user);
-    return user;
-  } catch {
-    this.currentUserSubject.next(null);
-    return null;
-  } finally {
-    this.isCheckingAuth = false;
-  }
-}*/
-
 }
